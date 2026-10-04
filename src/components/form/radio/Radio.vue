@@ -7,27 +7,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { RadioProps } from './types';
   import BaseRadio from './BaseRadio.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultValue?: string;
-    value?: string;
-    disabled?: boolean;
-    label?: string;
-    id?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<RadioProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     value: '',

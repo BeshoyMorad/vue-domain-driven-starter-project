@@ -1,11 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-export interface RadioGroupOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
-
 export const radioGroupVariants = cva('flex flex-wrap', {
   variants: {
     layout: {

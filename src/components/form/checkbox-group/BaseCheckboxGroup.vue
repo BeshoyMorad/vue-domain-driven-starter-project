@@ -1,25 +1,15 @@
 <script setup lang="ts">
   import { computed, useAttrs } from 'vue';
   import { useVModel } from '@vueuse/core';
-  import { checkboxGroupVariants, type CheckboxGroupOption } from './index';
+  import { checkboxGroupVariants } from './index';
+  import type { BaseCheckboxGroupProps } from './types';
   import BaseCheckbox from '@/components/form/checkbox/BaseCheckbox.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    options: CheckboxGroupOption[];
-    modelValue?: unknown[];
-    defaultValue?: unknown[];
-    layout?: 'vertical' | 'horizontal';
-    size?: 'small' | 'default' | 'large';
-    shape?: 'circle' | 'square';
-    disabled?: boolean;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseCheckboxGroupProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     layout: 'vertical',

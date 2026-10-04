@@ -8,30 +8,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { DatePickerProps } from './types';
   import BaseDatePicker from './BaseDatePicker.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: Date | string | null;
-    defaultValue?: Date | string | null;
-    dateFormat?: string;
-    minDate?: Date;
-    maxDate?: Date;
-    disabled?: boolean;
-    placeholder?: string;
-    label?: string;
-    id?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<DatePickerProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     dateFormat: undefined,

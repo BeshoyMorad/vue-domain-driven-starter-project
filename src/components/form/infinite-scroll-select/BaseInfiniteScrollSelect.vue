@@ -13,54 +13,32 @@
   import { Icon, InfiniteScroll } from '@/components';
   import { type AcceptableValue } from 'reka-ui';
   import { ComboboxItemIndicator, ComboboxItem, Combobox } from '@/components/ui/combobox';
-  import type { QueryKey } from '@tanstack/vue-query';
+  import type { BaseInfiniteScrollSelectProps } from './types';
 
   const ITEM_SIZE = 38;
   const MAX_HEIGHT = 250;
 
-  interface Props {
-    testId: string;
-
-    paginationType?: 'offset' | 'cursor';
-    endpoint: string;
-    queryKey: QueryKey;
-    limit?: number;
-    initialFilters?: Record<string, unknown>;
-    query?: Record<string, unknown>;
-
-    disabled?: boolean;
-    optionLabel?: string;
-    optionValue?: OptionValue | ((data: Option) => Value);
-    placeholder?: string;
-    size?: 'small' | 'default' | 'large';
-    showClear?: boolean;
-    searchable?: boolean;
-    class?: string;
-    multiple?: IsMultiple;
-    maxSelectedLabels?: number;
-
-    initialOptions?: Option[] | Option;
-    excludeValues?: Value[];
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
-    paginationType: 'offset',
-    limit: 10,
-    initialFilters: undefined,
-    query: undefined,
-    disabled: false,
-    multiple: undefined,
-    size: 'default',
-    optionLabel: 'name',
-    optionValue: (data: Option) => data.id as Value,
-    placeholder: undefined,
-    class: '',
-    showClear: true,
-    searchable: false,
-    initialOptions: () => [],
-    maxSelectedLabels: 4,
-    excludeValues: () => [],
-  });
+  const props = withDefaults(
+    defineProps<BaseInfiniteScrollSelectProps<IsMultiple, Option, Value, OptionValue>>(),
+    {
+      paginationType: 'offset',
+      limit: 10,
+      initialFilters: undefined,
+      query: undefined,
+      disabled: false,
+      multiple: undefined,
+      size: 'default',
+      optionLabel: 'name',
+      optionValue: (data: Option) => data.id as Value,
+      placeholder: undefined,
+      class: '',
+      showClear: true,
+      searchable: false,
+      initialOptions: () => [],
+      maxSelectedLabels: 4,
+      excludeValues: () => [],
+    }
+  );
 
   const modelValue = defineModel<IsMultiple extends true ? Value[] : Value>();
 

@@ -1,26 +1,16 @@
 <script setup lang="ts">
   import { computed, useAttrs, useId } from 'vue';
   import { useVModel } from '@vueuse/core';
-  import { radioGroupVariants, type RadioGroupOption } from './index';
+  import { radioGroupVariants } from './index';
   import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
   import { cn } from '@/utils';
+  import type { BaseRadioGroupProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    options: RadioGroupOption[];
-    modelValue?: string;
-    defaultValue?: string;
-    layout?: 'vertical' | 'horizontal';
-    size?: 'small' | 'default' | 'large';
-    disabled?: boolean;
-    id?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseRadioGroupProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     layout: 'vertical',

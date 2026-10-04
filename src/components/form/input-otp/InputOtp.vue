@@ -8,27 +8,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { InputOtpProps } from './types';
   import BaseInputOtp from './BaseInputOtp.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultValue?: string;
-    length?: number;
-    integerOnly?: boolean;
-    disabled?: boolean;
-    label?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<InputOtpProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     length: 6,

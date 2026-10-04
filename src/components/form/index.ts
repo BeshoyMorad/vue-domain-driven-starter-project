@@ -1,4 +1,5 @@
 export * from './multi-step-form';
+export * from './types';
 
 import { defineAsyncComponent } from 'vue';
 

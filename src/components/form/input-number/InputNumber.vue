@@ -8,34 +8,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { InputNumberProps } from './types';
   import BaseInputNumber from './BaseInputNumber.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: number;
-    defaultValue?: number;
-    icon?: string;
-    iconPosition?: 'left' | 'right';
-    loading?: boolean;
-    hideSteppers?: boolean;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-    // NumberField specific props to forward
-    min?: number;
-    max?: number;
-    step?: number;
-    disabled?: boolean;
-    formatOptions?: Intl.NumberFormatOptions;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<InputNumberProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     icon: undefined,

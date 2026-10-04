@@ -4,6 +4,7 @@
   import { cva } from 'class-variance-authority';
   import { cn } from '@/utils';
   import { useVModel } from '@vueuse/core';
+  import type { BaseCheckboxProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
@@ -22,22 +23,10 @@
     },
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: boolean;
-    defaultValue?: boolean;
-    size?: 'small' | 'default' | 'large';
-    shape?: 'circle' | 'square';
-    disabled?: boolean;
-    readonly?: boolean;
-    label?: string;
-    id?: string;
-  }
-
   const slots = useSlots();
   const attrs = useAttrs();
 
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseCheckboxProps>(), {
     modelValue: undefined,
     defaultValue: false,
     size: 'default',

@@ -4,6 +4,7 @@
   import { Switch } from '@/components/ui/switch';
   import { cva } from 'class-variance-authority';
   import { cn } from '@/utils';
+  import type { BaseSwitchProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
@@ -22,18 +23,7 @@
     },
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: boolean;
-    defaultValue?: boolean;
-    size?: 'small' | 'default' | 'large';
-    disabled?: boolean;
-    readonly?: boolean;
-    label?: string;
-    id?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseSwitchProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     size: 'default',

@@ -7,29 +7,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { CheckboxProps } from './types';
   import BaseCheckbox from './BaseCheckbox.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: boolean;
-    defaultValue?: boolean;
-    size?: 'small' | 'default' | 'large';
-    shape?: 'circle' | 'square';
-    disabled?: boolean;
-    readonly?: boolean;
-    label?: string;
-    id?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<CheckboxProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     size: 'default',

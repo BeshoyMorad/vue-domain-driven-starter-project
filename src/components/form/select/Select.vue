@@ -18,36 +18,13 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { SelectProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    options: Option[];
-    optionLabel: string;
-    optionValue: TOptionValue | ((data: Option) => TOptionValue);
-    placeholder?: string;
-    searchPlaceholder?: string;
-    size?: 'small' | 'default' | 'large';
-    multiple?: IsMultiple;
-    disabled?: boolean;
-    readonly?: boolean;
-    showClear?: boolean;
-    searchable?: boolean;
-    emptyMessage?: string;
-    maxSelectedLabels?: number;
-    selectedItemsLabel?: string;
-    loading?: boolean;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  withDefaults(defineProps<Props>(), {
+  withDefaults(defineProps<SelectProps<IsMultiple, Option, Value, TOptionValue>>(), {
     placeholder: 'Select..',
     searchPlaceholder: 'Search..',
     size: 'default',

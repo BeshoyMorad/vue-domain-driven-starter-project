@@ -8,24 +8,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { InputPasswordProps } from './types';
   import BaseInputPassword from './BaseInputPassword.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string | number;
-    defaultValue?: string | number;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<InputPasswordProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     name: undefined,

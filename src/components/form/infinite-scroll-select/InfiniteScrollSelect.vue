@@ -18,39 +18,13 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
-  import type { QueryKey } from '@tanstack/vue-query';
+  import type { InfiniteScrollSelectProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    endpoint: string;
-    queryKey: QueryKey;
-    paginationType?: 'offset' | 'cursor';
-    limit?: number;
-    initialFilters?: Record<string, unknown>;
-    query?: Record<string, unknown>;
-    disabled?: boolean;
-    optionLabel?: string;
-    optionValue?: OptionValue | ((data: Option) => Value);
-    placeholder?: string;
-    size?: 'small' | 'default' | 'large';
-    showClear?: boolean;
-    searchable?: boolean;
-    multiple?: IsMultiple;
-    maxSelectedLabels?: number;
-    initialOptions?: Option[] | Option;
-    excludeValues?: Value[];
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  withDefaults(defineProps<Props>(), {
+  withDefaults(defineProps<InfiniteScrollSelectProps<IsMultiple, Option, Value, OptionValue>>(), {
     paginationType: 'offset',
     limit: 10,
     initialFilters: undefined,

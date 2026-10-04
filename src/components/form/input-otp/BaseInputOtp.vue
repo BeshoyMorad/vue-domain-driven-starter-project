@@ -3,21 +3,13 @@
   import { useVModel } from '@vueuse/core';
   import { REGEXP_ONLY_DIGITS } from 'vue-input-otp';
   import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+  import type { BaseInputOtpProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultValue?: string;
-    length?: number;
-    integerOnly?: boolean;
-    disabled?: boolean;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseInputOtpProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     length: 6,

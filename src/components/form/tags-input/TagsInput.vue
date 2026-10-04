@@ -8,27 +8,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { TagsInputProps } from './types';
   import BaseTagsInput from './BaseTagsInput.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string[];
-    defaultValue?: string[];
-    placeholder?: string;
-    disabled?: boolean;
-    tagClass?: string;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<TagsInputProps>(), {
     modelValue: () => [],
     defaultValue: () => [],
     placeholder: undefined,

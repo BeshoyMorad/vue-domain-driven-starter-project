@@ -12,25 +12,13 @@
     isImageMimeType,
   } from '@/constants/file-upload';
   import ImageCropperDialog from './ImageCropperDialog.vue';
+  import type { BaseImageUploadProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: MediaValue | null;
-    disabled?: boolean;
-    placeholder?: string;
-    sizePreset?: 'logo' | 'smallLogo' | 'avatar' | 'default';
-    ariaInvalid?: boolean;
-    allowedTypes?: string[];
-    crop?: boolean;
-    cropAspectRatio?: number;
-    maxSizeMb?: number;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseImageUploadProps>(), {
     modelValue: null,
     disabled: false,
     placeholder: 'Upload image',

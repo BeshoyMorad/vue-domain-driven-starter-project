@@ -8,30 +8,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { RadioGroupProps } from './types';
   import BaseRadioGroup from './BaseRadioGroup.vue';
-  import type { RadioGroupOption } from './index';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    options: RadioGroupOption[];
-    modelValue?: string;
-    defaultValue?: string;
-    layout?: 'vertical' | 'horizontal';
-    size?: 'small' | 'default' | 'large';
-    disabled?: boolean;
-    label?: string;
-    id?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<RadioGroupProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     layout: 'vertical',

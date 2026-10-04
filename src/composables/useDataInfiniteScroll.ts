@@ -1,52 +1,13 @@
-import { computed, toValue, type MaybeRefOrGetter, type ComputedRef, type Ref } from 'vue';
-import {
-  keepPreviousData,
-  useInfiniteQuery,
-  type QueryKey,
-  type UseInfiniteQueryReturnType,
-} from '@tanstack/vue-query';
+import { computed, toValue } from 'vue';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/vue-query';
 import { fetchTableData } from '@/lib/api/table';
-import {
-  useTableState,
-  type TableStateOptions,
-  type TableParams,
-  type TableStateReturn,
-} from './useTableState';
-
-export interface UseDataInfiniteScrollOptions<
-  TFilters extends object = object,
-> extends TableStateOptions<TFilters> {
-  queryKey: MaybeRefOrGetter<QueryKey>;
-  endpoint: MaybeRefOrGetter<string>;
-  queryOptions?: object;
-  extractData?: (data: unknown) => unknown[];
-}
-
-export type InfiniteScrollDataState =
-  | 'loading'
-  | 'empty'
-  | 'search-empty'
-  | 'filtered-empty'
-  | 'success'
-  | 'error';
-
-export type UseDataInfiniteScrollReturn<
-  TData,
-  TFilters extends object = object,
-  TError = Error,
-> = TableStateReturn<TFilters> &
-  Omit<UseInfiniteQueryReturnType<unknown, TError>, 'data' | 'meta' | 'hasNextPage'> & {
-    data: ComputedRef<TData[]>;
-    meta: ComputedRef<Meta | CursorMeta | null | undefined>;
-    isEmpty: ComputedRef<boolean>;
-    isSearchEmpty: ComputedRef<boolean>;
-    isFilteredEmpty: ComputedRef<boolean>;
-    tableState: ComputedRef<InfiniteScrollDataState>;
-    hasMore: Ref<boolean>;
-    extraData: ComputedRef<unknown>;
-    dynamicQueryKey: ComputedRef<QueryKey>;
-    changeLimit: (limit: number) => void;
-  };
+import { useTableState } from './useTableState';
+import type {
+  InfiniteScrollDataState,
+  TableParams,
+  UseDataInfiniteScrollOptions,
+  UseDataInfiniteScrollReturn,
+} from './types';
 
 // eslint-disable-next-line max-lines-per-function
 export function useDataInfiniteScroll<

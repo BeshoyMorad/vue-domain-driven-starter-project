@@ -3,22 +3,13 @@
   import { useVModel } from '@vueuse/core';
   import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
   import { cn } from '@/utils';
+  import type { BaseRadioProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultValue?: string;
-    value?: string;
-    disabled?: boolean;
-    label?: string;
-    id?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseRadioProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     value: '',

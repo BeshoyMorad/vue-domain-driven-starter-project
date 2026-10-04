@@ -15,32 +15,18 @@
   import { computed, ref, watch } from 'vue';
   import { createMediaValueList } from '@/composables';
   import { Button, Field, Icon, Tooltip } from '@/components';
+  import type { TextAreaWithMediaProps } from './types';
 
-  const props = withDefaults(
-    defineProps<{
-      textAreaName: string;
-      mediaName: string;
-      placeholder?: string;
-      submitLabel?: string;
-      containerClass?: string;
-      loading?: boolean;
-      disabled?: boolean;
-      testId: string;
-      bordered?: boolean;
-      hideAttachmentButton?: boolean;
-      hideSaveButton?: boolean;
-    }>(),
-    {
-      placeholder: 'Enter text...',
-      submitLabel: 'Submit',
-      containerClass: '',
-      loading: false,
-      disabled: false,
-      bordered: true,
-      hideAttachmentButton: false,
-      hideSaveButton: false,
-    }
-  );
+  const props = withDefaults(defineProps<TextAreaWithMediaProps>(), {
+    placeholder: 'Enter text...',
+    submitLabel: 'Submit',
+    containerClass: '',
+    loading: false,
+    disabled: false,
+    bordered: true,
+    hideAttachmentButton: false,
+    hideSaveButton: false,
+  });
 
   const MAX_FILES = 5;
   const MAX_SIZE_MB = 10;

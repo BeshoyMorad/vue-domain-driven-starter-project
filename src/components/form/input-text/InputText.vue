@@ -8,27 +8,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { InputTextProps } from './types';
   import BaseInputText from './BaseInputText.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string | number;
-    defaultValue?: string | number;
-    icon?: string;
-    iconPosition?: 'left' | 'right';
-    loading?: boolean;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<InputTextProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     icon: undefined,

@@ -8,30 +8,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { CheckboxGroupProps } from './types';
   import BaseCheckboxGroup from './BaseCheckboxGroup.vue';
-  import type { CheckboxGroupOption } from '.';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    options: CheckboxGroupOption[];
-    modelValue?: unknown[];
-    defaultValue?: unknown[];
-    layout?: 'vertical' | 'horizontal';
-    size?: 'small' | 'default' | 'large';
-    shape?: 'circle' | 'square';
-    disabled?: boolean;
-    label?: string;
-    // Form validation wrapper props
-    name?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<CheckboxGroupProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     layout: 'vertical',

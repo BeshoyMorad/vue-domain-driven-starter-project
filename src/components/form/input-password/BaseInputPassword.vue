@@ -3,18 +3,13 @@
   import { useVModel } from '@vueuse/core';
   import BaseInputText from '@/components/form/input-text/BaseInputText.vue';
   import { Icon } from '@/components';
+  import type { BaseInputPasswordProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string | number;
-    defaultValue?: string | number;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseInputPasswordProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
   });

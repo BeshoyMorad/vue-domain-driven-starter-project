@@ -9,23 +9,13 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { TextareaProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string | number;
-    defaultValue?: string | number;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<TextareaProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     name: undefined,

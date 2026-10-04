@@ -3,21 +3,13 @@
   import { cn } from '@/utils';
   import { Input } from '@/components/ui/input';
   import { Icon } from '@/components';
+  import type { BaseInputTextProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string | number;
-    defaultValue?: string | number;
-    icon?: string;
-    iconPosition?: 'left' | 'right';
-    loading?: boolean;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseInputTextProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     icon: undefined,

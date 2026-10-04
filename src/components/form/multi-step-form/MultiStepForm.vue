@@ -4,36 +4,14 @@
   import { cn } from '@/utils';
   import { useMultiStepForm } from '@/composables/useMultiStepForm';
   import StepIndicator from './StepIndicator.vue';
-  import type { StepDefinition, FormPersistenceOption, FormPersistenceConfig } from './types';
-  import type { GenericObject } from 'vee-validate';
-  import type { HTMLAttributes } from 'vue';
+  import type {
+    MultiStepFormProps,
+    MultiStepFormEmits,
+    FormPersistenceOption,
+    FormPersistenceConfig,
+  } from './types';
 
   // ── Props & Emits ──────────────────────────────────────────────────────────
-
-  interface Props {
-    testId: string;
-    steps: StepDefinition[];
-    initialValues?: GenericObject;
-    nextLabel?: string;
-    backLabel?: string;
-    submitLabel?: string;
-    loading?: boolean;
-    showStepper?: boolean;
-    /** CSS class applied to the form body area. */
-    bodyClass?: HTMLAttributes['class'];
-    /**
-     * Persist form state and step in session storage (or local storage).
-     * Can be:
-     * - `true`: enables session persistence using a key derived from testId
-     * - `string`: custom storage key
-     * - `FormPersistenceConfig`: custom configuration object
-     */
-    persist?: FormPersistenceOption;
-  }
-
-  interface Emits {
-    (e: 'submit', values: GenericObject): void;
-  }
 
   const {
     testId,
@@ -46,9 +24,9 @@
     showStepper = true,
     bodyClass = '',
     persist = undefined,
-  } = defineProps<Props>();
+  } = defineProps<MultiStepFormProps>();
 
-  const emit = defineEmits<Emits>();
+  const emit = defineEmits<MultiStepFormEmits>();
 
   const formId = `${useId()}-multi-step-form`;
 

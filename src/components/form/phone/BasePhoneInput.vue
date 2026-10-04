@@ -6,23 +6,15 @@
   import { inputVariants } from '@/components/ui/input';
   import { Popover } from '@/components/ui/popover';
   import { Icon } from '@/components';
+  import type { BasePhoneInputProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultCountry?: CountryCode;
-    placeholder?: string;
-    disabled?: boolean;
-    showClear?: boolean;
-  }
-
   // ─── Props & Emits ────────────────────────────────────────────────────────────
 
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BasePhoneInputProps>(), {
     modelValue: '',
     defaultCountry: 'US',
     placeholder: '000 000 0000',

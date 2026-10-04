@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { watch, type HTMLAttributes } from 'vue';
+  import { watch } from 'vue';
   import { useEditor, EditorContent } from '@tiptap/vue-3';
   import StarterKit from '@tiptap/starter-kit';
   import Underline from '@tiptap/extension-underline';
@@ -8,25 +8,13 @@
   import { cn } from '@/utils';
   import EditorToolbar from './EditorToolbar.vue';
   import './editor.css';
+  import type { BaseEditorProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultValue?: string;
-    placeholder?: string;
-    disabled?: boolean;
-    readonly?: boolean;
-    minHeight?: string;
-    maxHeight?: string;
-    class?: HTMLAttributes['class'];
-    invalid?: boolean;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseEditorProps>(), {
     modelValue: undefined,
     defaultValue: '',
     placeholder: 'Type content here...',

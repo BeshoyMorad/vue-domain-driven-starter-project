@@ -1,56 +1,10 @@
-/* eslint-disable max-lines-per-function */
-import {
-  keepPreviousData,
-  useQuery,
-  type QueryKey,
-  type UseQueryReturnType,
-} from '@tanstack/vue-query';
+import { keepPreviousData, useQuery } from '@tanstack/vue-query';
 import { fetchTableData } from '@/lib/api/table';
-import {
-  useTableState,
-  type TableStateOptions,
-  type TableStateReturn,
-  type TableParams,
-} from './useTableState';
-import { computed, type ComputedRef } from 'vue';
+import { useTableState } from './useTableState';
+import { computed } from 'vue';
+import type { DataTableState, TableParams, UseTableOptions, UseDataTableReturn } from './types';
 
-export interface UseTableOptions<
-  TFilters extends object = object,
-> extends TableStateOptions<TFilters> {
-  queryKey: QueryKey;
-  endpoint: string;
-  queryOptions?: object;
-  extractData?: (data: unknown) => unknown[];
-}
-
-export type DataTableState =
-  | 'loading'
-  | 'empty'
-  | 'search-empty'
-  | 'filtered-empty'
-  | 'success'
-  | 'error';
-
-export type UseDataTableReturn<
-  TData,
-  TFilters extends object = object,
-  TError = Error,
-> = TableStateReturn<TFilters> &
-  Omit<UseQueryReturnType<unknown, TError>, 'data' | 'meta'> & {
-    data: ComputedRef<TData[]>;
-    meta: ComputedRef<Meta | CursorMeta | null>;
-    isEmpty: ComputedRef<boolean>;
-    isSearchEmpty: ComputedRef<boolean>;
-    isFilteredEmpty: ComputedRef<boolean>;
-    tableState: ComputedRef<DataTableState>;
-    dynamicQueryKey: ComputedRef<QueryKey>;
-    goToNext: () => void;
-    goToPrev: () => void;
-    goToPage: (page: number) => void;
-    changeLimit: (limit: number) => void;
-    extraData: ComputedRef<unknown>;
-  };
-
+// eslint-disable-next-line max-lines-per-function
 export function useDataTable<TData = unknown, TFilters extends object = object, TError = Error>(
   options: UseTableOptions<TFilters>
 ): UseDataTableReturn<TData, TFilters, TError> {

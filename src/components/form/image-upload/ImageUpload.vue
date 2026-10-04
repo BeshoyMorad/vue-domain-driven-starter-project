@@ -10,28 +10,13 @@
   } from '@/components/ui/form';
   import BaseImageUpload from './BaseImageUpload.vue';
   import type { MediaValue } from '@/types/media';
+  import type { ImageUploadProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: MediaValue | null;
-    disabled?: boolean;
-    placeholder?: string;
-    sizePreset?: 'logo' | 'smallLogo' | 'avatar' | 'default';
-    allowedTypes?: string[];
-    crop?: boolean;
-    cropAspectRatio?: number;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<ImageUploadProps>(), {
     modelValue: null,
     disabled: false,
     placeholder: 'Upload image',

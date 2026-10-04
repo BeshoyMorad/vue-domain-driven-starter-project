@@ -1,10 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-
-export interface CheckboxGroupOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
+export type { CheckboxGroupOption } from './types';
 
 export const checkboxGroupVariants = cva('flex flex-wrap', {
   variants: {

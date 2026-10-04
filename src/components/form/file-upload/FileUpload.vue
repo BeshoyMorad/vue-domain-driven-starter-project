@@ -9,29 +9,14 @@
     FormMessage,
   } from '@/components/ui/form';
   import BaseFileUpload from './BaseFileUpload.vue';
+  import type { FileUploadProps } from './types';
   import type { MediaValue } from '@/types/media';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: MediaValue[];
-    disabled?: boolean;
-    placeholder?: string;
-    buttonLabel?: string;
-    allowedTypes?: string[];
-    maxFiles?: number;
-    maxSizeMb?: number;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<FileUploadProps>(), {
     modelValue: () => [],
     disabled: false,
     placeholder: undefined,

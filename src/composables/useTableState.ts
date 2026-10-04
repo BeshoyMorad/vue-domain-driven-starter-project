@@ -1,59 +1,6 @@
 import { refDebounced } from '@vueuse/core';
-import {
-  computed,
-  ref,
-  toValue,
-  watch,
-  type ComputedRef,
-  type MaybeRefOrGetter,
-  type Ref,
-} from 'vue';
-
-export interface TableParams {
-  page?: number;
-  cursor?: string;
-  limit: number;
-  search?: string;
-  filters?: object;
-  sortKey?: string;
-  order?: 'ASC' | 'DESC';
-  [key: string]: unknown;
-}
-
-export interface TableSort {
-  sortKey?: string;
-  order?: 'ASC' | 'DESC';
-}
-
-export interface TableStateOptions<TFilters extends object> {
-  query?: MaybeRefOrGetter<TFilters>;
-  limit?: number;
-  searchDebounce?: number;
-  initialSearch?: string;
-  initialFilters?: object;
-  flatFilters?: boolean;
-  initialSort?: TableSort;
-  paginationType?: 'offset' | 'cursor' | 'none';
-}
-
-export interface TableStateReturn<TFilters extends object> {
-  search: Ref<string>;
-  debouncedSearch: Ref<string>;
-  isDebouncing: ComputedRef<boolean>;
-  filters: Ref<TFilters>;
-  setFilters: (newFilters: Partial<TFilters>) => void;
-  clearFilters: () => void;
-  hasSearch: ComputedRef<boolean>;
-  hasFilters: ComputedRef<boolean>;
-  hasActiveFilters: ComputedRef<boolean>;
-  itemsPerPage: Ref<number>;
-  baseParams: ComputedRef<TableParams>;
-  page: Ref<number>;
-  cursor: Ref<string | null>;
-  sortKey: Ref<string | undefined>;
-  order: Ref<'ASC' | 'DESC' | undefined>;
-  sort: (sorting: TableSort) => void;
-}
+import { computed, ref, toValue, watch, type Ref } from 'vue';
+import type { TableParams, TableSort, TableStateOptions, TableStateReturn } from './types';
 
 // eslint-disable-next-line max-lines-per-function
 export function useTableState<TFilters extends object>(

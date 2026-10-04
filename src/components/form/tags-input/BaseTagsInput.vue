@@ -7,21 +7,13 @@
     TagsInputItemDelete,
     TagsInputItemText,
   } from '@/components/ui/tags-input';
+  import type { BaseTagsInputProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string[];
-    defaultValue?: string[];
-    placeholder?: string;
-    disabled?: boolean;
-    tagClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<BaseTagsInputProps>(), {
     modelValue: () => [],
     defaultValue: () => [],
     placeholder: undefined,

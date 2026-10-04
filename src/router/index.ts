@@ -20,15 +20,6 @@ export const routes = [
         component: () => import('@/modules/doc/documentation/pages/index.vue'),
         meta: { title: 'Dashboard' },
       },
-      {
-        path: 'assets',
-        name: paths.dashboard.assets,
-        component: () => import('@/modules/assets/pages/Index.vue'),
-        meta: {
-          title: 'assets',
-          sidebar: true,
-        },
-      },
       ...docRoutes,
       ...componentsRoutes,
       ...formsRoutes,

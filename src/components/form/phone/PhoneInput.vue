@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { useVModel } from '@vueuse/core';
-  import type { CountryCode } from 'libphonenumber-js';
   import {
     FormField,
     FormItem,
@@ -9,27 +8,14 @@
     FormDescription,
     FormMessage,
   } from '@/components/ui/form';
+  import type { PhoneInputProps } from './types';
   import BasePhoneInput from './BasePhoneInput.vue';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultCountry?: CountryCode;
-    placeholder?: string;
-    disabled?: boolean;
-    showClear?: boolean;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    containerClass?: string;
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<PhoneInputProps>(), {
     modelValue: '',
     defaultCountry: 'US',
     placeholder: '000 000 0000',

@@ -9,30 +9,13 @@
     FormMessage,
   } from '@/components/ui/form';
   import BaseEditor from './BaseEditor.vue';
-  import type { HTMLAttributes } from 'vue';
+  import type { EditorProps } from './types';
 
   defineOptions({
     inheritAttrs: false,
   });
 
-  interface Props {
-    testId: string;
-    modelValue?: string;
-    defaultValue?: string;
-    placeholder?: string;
-    disabled?: boolean;
-    readonly?: boolean;
-    minHeight?: string;
-    maxHeight?: string;
-    // Form validation wrapper props
-    name?: string;
-    label?: string;
-    description?: string;
-    class?: HTMLAttributes['class'];
-    containerClass?: HTMLAttributes['class'];
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<EditorProps>(), {
     modelValue: undefined,
     defaultValue: undefined,
     placeholder: undefined,
