@@ -1,0 +1,85 @@
+<script setup lang="ts">
+  import { useVModel } from '@vueuse/core';
+  import { cn } from '@/shared/utils';
+  import { Input } from '@/shared/ui/ui/input';
+  import { Icon } from '@/shared/ui';
+  import type { BaseInputTextProps } from './types';
+
+  defineOptions({
+    inheritAttrs: false,
+  });
+
+  const props = withDefaults(defineProps<BaseInputTextProps>(), {
+    modelValue: undefined,
+    defaultValue: undefined,
+    icon: undefined,
+    iconPosition: 'left',
+    loading: false,
+  });
+
+  const emits = defineEmits<{
+    (e: 'update:modelValue', value: string | number): void;
+  }>();
+
+  const modelValue = useVModel(props, 'modelValue', emits, {
+    passive: true,
+    defaultValue: props.defaultValue,
+  });
+</script>
+
+<template>
+  <div class="relative flex w-full items-center">
+    <span
+      v-if="
+        $slots.left || (icon && iconPosition === 'left') || (loading && iconPosition === 'left')
+      "
+      class="text-text-disabled absolute left-3 flex items-center justify-center"
+      :class="{ 'pointer-events-none': !$slots.left }"
+    >
+      <slot name="left">
+        <Icon
+          v-if="loading"
+          icon="hugeicons--loading-03"
+          class="size-5 animate-spin duration-500"
+          :test-id="`${testId}-loading`"
+        />
+        <Icon v-else-if="icon" :icon="icon" class="size-5" :test-id="`${testId}-icon`" />
+      </slot>
+    </span>
+
+    <Input
+      v-model="modelValue"
+      v-bind="$attrs"
+      :class="
+        cn('w-full', {
+          'pl-10':
+            $slots.left ||
+            (icon && iconPosition === 'left') ||
+            (loading && iconPosition === 'left'),
+          'pr-10':
+            $slots.right ||
+            (icon && iconPosition === 'right') ||
+            (loading && iconPosition === 'right'),
+        })
+      "
+    />
+
+    <span
+      v-if="
+        $slots.right || (icon && iconPosition === 'right') || (loading && iconPosition === 'right')
+      "
+      class="text-text-disabled absolute right-3 flex items-center justify-center"
+      :class="{ 'pointer-events-none': !$slots.right }"
+    >
+      <slot name="right">
+        <Icon
+          v-if="loading"
+          icon="hugeicons--loading-03"
+          class="size-5 animate-spin duration-500"
+          :test-id="`${testId}-loading`"
+        />
+        <Icon v-else-if="icon" :icon="icon" class="size-5" :test-id="`${testId}-icon`" />
+      </slot>
+    </span>
+  </div>
+</template>

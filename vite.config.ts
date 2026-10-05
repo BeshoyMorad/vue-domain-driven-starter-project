@@ -4,6 +4,12 @@ import vue from '@vitejs/plugin-vue';
 import tailwindcss from '@tailwindcss/vite';
 
 const getManualChunks = (id: string): string | undefined => {
+  // Dynamic domain bundle isolation
+  const domainMatch = id.match(/\/src\/domains\/([^/]+)\//);
+  if (domainMatch) {
+    return `domain-${domainMatch[1]}`;
+  }
+
   if (!id.includes('node_modules')) return;
 
   if (
@@ -69,6 +75,10 @@ export default defineConfig(() => {
       alias: {
         '@/tests': fileURLToPath(new URL('./tests', import.meta.url)),
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '@app': fileURLToPath(new URL('./src/app', import.meta.url)),
+        '@core': fileURLToPath(new URL('./src/core', import.meta.url)),
+        '@shared': fileURLToPath(new URL('./src/shared', import.meta.url)),
+        '@domains': fileURLToPath(new URL('./src/domains', import.meta.url)),
       },
     },
   };

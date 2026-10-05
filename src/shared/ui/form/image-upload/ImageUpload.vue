@@ -1,0 +1,86 @@
+<script setup lang="ts">
+  import { useVModel } from '@vueuse/core';
+  import {
+    FormField,
+    FormItem,
+    FormLabel,
+    FormControl,
+    FormDescription,
+    FormMessage,
+  } from '@/shared/ui/ui/form';
+  import BaseImageUpload from './BaseImageUpload.vue';
+  import type { MediaValue } from '@/shared/types/media';
+  import type { ImageUploadProps } from './types';
+
+  defineOptions({
+    inheritAttrs: false,
+  });
+
+  const props = withDefaults(defineProps<ImageUploadProps>(), {
+    modelValue: null,
+    disabled: false,
+    placeholder: 'Upload image',
+    sizePreset: 'default',
+    allowedTypes: undefined,
+    crop: false,
+    cropAspectRatio: undefined,
+    name: undefined,
+    label: undefined,
+    description: undefined,
+    containerClass: undefined,
+  });
+
+  const emits = defineEmits<{
+    (e: 'update:modelValue', value: MediaValue | null): void;
+  }>();
+
+  const modelValue = useVModel(props, 'modelValue', emits, {
+    passive: true,
+    defaultValue: null,
+  });
+</script>
+
+<template>
+  <template v-if="name">
+    <FormField v-slot="{ value, handleChange, errorMessage }" :name="name">
+      <FormItem :class="containerClass">
+        <FormLabel v-if="label">{{ label }}</FormLabel>
+
+        <FormControl>
+          <BaseImageUpload
+            :test-id="testId"
+            :disabled="disabled"
+            :placeholder="placeholder"
+            :size-preset="sizePreset"
+            :allowed-types="allowedTypes"
+            :aria-invalid="!!errorMessage"
+            :model-value="value"
+            :crop="crop"
+            :crop-aspect-ratio="cropAspectRatio"
+            v-bind="$attrs"
+            @update:model-value="handleChange"
+          />
+        </FormControl>
+
+        <FormDescription v-if="description">{{ description }}</FormDescription>
+
+        <FormMessage />
+      </FormItem>
+    </FormField>
+  </template>
+
+  <template v-else>
+    <BaseImageUpload
+      v-model="modelValue"
+      v-bind="$attrs"
+      :test-id="testId"
+      :disabled="disabled"
+      :placeholder="placeholder"
+      :size-preset="sizePreset"
+      :allowed-types="allowedTypes"
+      :crop="crop"
+      :crop-aspect-ratio="cropAspectRatio"
+      :class="containerClass"
+    />
+  </template>
+</template>

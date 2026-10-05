@@ -5,7 +5,7 @@
   "typescript": true,
   "tailwind": {
     "config": "",
-    "css": "src/css/index.css",
+    "css": "src/shared/styles/index.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
@@ -13,11 +13,11 @@
   "iconLibrary": "hugeicons",
   "rtl": false,
   "aliases": {
-    "components": "@/components",
-    "utils": "@/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "composables": "@/composables"
+    "components": "@/shared/ui",
+    "utils": "@/shared/utils",
+    "ui": "@/shared/ui/ui",
+    "lib": "@/core/lib",
+    "composables": "@/shared/composables"
   },
   "registries": {}
 }

@@ -1,0 +1,57 @@
+<script setup lang="ts">
+  import { useVModel } from '@vueuse/core';
+  import { Textarea as UITextarea } from '@/shared/ui/ui/textarea';
+  import {
+    FormField,
+    FormItem,
+    FormLabel,
+    FormControl,
+    FormDescription,
+    FormMessage,
+  } from '@/shared/ui/ui/form';
+  import type { TextareaProps } from './types';
+
+  defineOptions({
+    inheritAttrs: false,
+  });
+
+  const props = withDefaults(defineProps<TextareaProps>(), {
+    modelValue: undefined,
+    defaultValue: undefined,
+    name: undefined,
+    label: undefined,
+    description: undefined,
+    containerClass: undefined,
+  });
+
+  const emits = defineEmits<{
+    (e: 'update:modelValue', value: string | number): void;
+  }>();
+
+  const modelValue = useVModel(props, 'modelValue', emits, {
+    passive: true,
+    defaultValue: props.defaultValue,
+  });
+</script>
+
+<template>
+  <template v-if="name">
+    <FormField v-slot="{ componentField }" :name="name">
+      <FormItem :class="containerClass">
+        <FormLabel v-if="label">{{ label }}</FormLabel>
+
+        <FormControl>
+          <UITextarea v-bind="{ ...$attrs, ...componentField }" :test-id="testId" />
+        </FormControl>
+
+        <FormDescription v-if="description">{{ description }}</FormDescription>
+
+        <FormMessage />
+      </FormItem>
+    </FormField>
+  </template>
+
+  <template v-else>
+    <UITextarea v-model="modelValue" v-bind="$attrs" :class="containerClass" :test-id="testId" />
+  </template>
+</template>

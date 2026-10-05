@@ -1,8 +1,51 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import eslint from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginVue from 'eslint-plugin-vue';
 import globals from 'globals';
 import typescriptEslint from 'typescript-eslint';
+
+const currentDir = path.dirname(fileURLToPath(import.meta.url));
+const domainsDir = path.resolve(currentDir, 'src/domains');
+
+const domains = fs.existsSync(domainsDir)
+  ? fs
+      .readdirSync(domainsDir, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name)
+  : [];
+
+const domainIsolationConfigs = domains.map((domain) => {
+  const otherDomains = domains.filter((d) => d !== domain);
+  return {
+    files: [`src/domains/${domain}/**/*.{ts,vue}`],
+    rules: {
+      'no-restricted-imports': [
+        'error' as const,
+        {
+          patterns: [
+            {
+              group: [
+                ...otherDomains.flatMap((other) => [
+                  `@/domains/${other}/**`,
+                  `@/domains/${other}`,
+                  `@domains/${other}/**`,
+                  `@domains/${other}`,
+                  `../${other}/**`,
+                  `../../${other}/**`,
+                  `../../../${other}/**`,
+                ]),
+              ],
+              message: `Domain '${domain}' is strictly isolated and cannot import from sibling domain(s): ${otherDomains.join(', ')}.`,
+            },
+          ],
+        },
+      ] as ['error', { patterns: { group: string[]; message: string }[] }],
+    },
+  };
+});
 
 export default typescriptEslint.config(
   { ignores: ['*.d.ts', '**/coverage', '**/dist', 'node_modules'] },
@@ -89,6 +132,42 @@ export default typescriptEslint.config(
       'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     },
   },
+  // Architecture Boundary: Core cannot import domains
+  {
+    files: ['src/core/**/*.{ts,vue}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/domains/**', '@/domains', '@domains/**', '@domains'],
+              message: 'src/core must not import from domains layer.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  // Architecture Boundary: Shared cannot import domains
+  {
+    files: ['src/shared/**/*.{ts,vue}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/domains/**', '@/domains', '@domains/**', '@domains'],
+              message: 'src/shared must not import from domains layer.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  // Architecture Boundary: Cross-domain isolation rules
+  ...domainIsolationConfigs,
   {
     files: ['**/*.spec.ts', '**/*.test.ts', 'tests/**/*.ts'],
     rules: {

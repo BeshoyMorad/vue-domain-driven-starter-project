@@ -13,6 +13,7 @@
     "type-check": "vue-tsc --noEmit",
     "test:unit": "vitest",
     "verify": "node scripts/verify.mjs",
+    "create:domain": "node scripts/create-domain.mjs",
     "prepare": "husky"
   },
   "dependencies": {
