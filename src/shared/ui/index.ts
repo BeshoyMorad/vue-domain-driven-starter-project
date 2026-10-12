@@ -19,6 +19,7 @@ export { default as LanguageSwitcher } from './LanguageSwitcher.vue';
 
 // PlaceHolders
 export { default as EmptyPlaceholder } from './placeholders/EmptyPlaceholder.vue';
+export { default as TableErrorState } from './placeholders/TableErrorState.vue';
 export { default as ComingSoonPlaceholder } from './placeholders/ComingSoonPlaceholder.vue';
 
 // UI Components

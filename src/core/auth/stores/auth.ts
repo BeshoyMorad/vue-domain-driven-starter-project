@@ -2,6 +2,7 @@ import router from '@/app/router';
 import { paths } from '@/app/router/paths';
 import { defineStore } from 'pinia';
 import { StorageSerializers, useLocalStorage } from '@vueuse/core';
+import { queryClient } from '@/core/lib/query-client';
 
 const USER_STORAGE_KEY = 'user';
 const ACCESS_TOKEN_STORAGE_KEY = 'app_access_token';
@@ -27,6 +28,7 @@ export const useAuthStore = defineStore('auth', () => {
     accessToken.value = '';
     refreshToken.value = '';
     user.value = null;
+    queryClient.clear();
     router.push({ name: paths.auth.login });
   };
 

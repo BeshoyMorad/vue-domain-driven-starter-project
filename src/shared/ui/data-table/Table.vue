@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="TRow">
   import { cn } from '@/shared/utils';
   import { type ColumnDef } from '@tanstack/vue-table';
-  import { Skeleton, EmptyPlaceholder } from '@/shared/ui';
+  import { Skeleton, EmptyPlaceholder, TableErrorState } from '@/shared/ui';
   import {
     Table,
     TableHeader,
@@ -19,11 +19,14 @@
     columns: ColumnDef<TRow, unknown>[];
     value: TRow[];
     loading?: boolean;
+    skeletonRows?: number;
     meta?: Meta | CursorMeta | null;
     limitOptions?: number[];
     clickable?: boolean;
     isFilteredEmpty?: boolean;
     isSearchEmpty?: boolean;
+    isError?: boolean;
+    errorAction?: () => void;
   }
 
   const props = defineProps<Props>();
@@ -55,8 +58,14 @@
     </TableHeader>
 
     <TableBody>
-      <template v-if="loading">
-        <UITableRow v-for="i in 10" :key="`skeleton-row-${i}`">
+      <UITableRow v-if="isError">
+        <TableCell :colspan="columns.length">
+          <TableErrorState :button-action="errorAction" />
+        </TableCell>
+      </UITableRow>
+
+      <template v-else-if="loading">
+        <UITableRow v-for="i in skeletonRows ?? 10" :key="`skeleton-row-${i}`">
           <TableCell v-for="(_, index) in columns.length" :key="`skeleton-col-${index}`">
             <Skeleton class="h-4 w-[60%]" />
           </TableCell>
@@ -89,13 +98,13 @@
               title="No Results Found"
               description="No data matches your current filters."
             />
-            <EmptyPlaceholder v-else />
+            <EmptyPlaceholder v-else icon="hugeicons--search-remove" />
           </slot>
         </TableCell>
       </UITableRow>
     </TableBody>
 
-    <template #footer>
+    <template v-if="!isError" #footer>
       <TablePagination
         :meta="meta"
         :limit-options="limitOptions"
