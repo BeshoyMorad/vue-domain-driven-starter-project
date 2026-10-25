@@ -17,5 +17,4 @@ export type { UseMultiStepFormReturn } from './useMultiStepForm';
 export { useNetwork } from './useNetwork';
 export { useModal } from './useModal';
 export { useVirtualScroll } from './useVirtualScroll';
-export { useAppLocale } from './useAppLocale';
 export { useTableState } from './useTableState';
