@@ -1,0 +1,8 @@
+description = "Scaffold a new business domain"
+prompt = """
+Follow the skill below exactly. Argument: the domain name.
+
+Arguments: {{args}}
+
+@{.claude/skills/new-domain/SKILL.md}
+"""

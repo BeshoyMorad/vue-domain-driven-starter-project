@@ -1,14 +1,16 @@
 ---
 paths:
-  - "apps/**"
-  - "packages/**"
-  - "domains/**"
-  - "core/**"
-  - "shared/**"
+  - "src/app/**"
+  - "src/domains/**"
+  - "src/core/**"
+  - "src/shared/**"
 ---
 
 # Import boundaries
 
-- Monorepo: no relative imports across `apps/*` boundaries; import shared code via its package name. `packages/ui` and `packages/core` stay SSR-safe with `"sideEffects": false`.
-- FSD/DDD: `app → domains → core → shared` only. A file in `domains/x` never imports from `domains/y`. `shared/` imports nothing from above it.
+- Direction is `app → domains → core → shared`. A layer imports only from layers to its right.
+- A file in `domains/x` never imports from `domains/y`, through `@/domains/y`, `@domains/y`, or a relative path. ESLint enforces this per domain folder.
+- `shared/` imports nothing from `core/`, `domains/`, or `app/`, and code under `shared/` imports only from `@/shared/*`.
+- `core/` imports only `core/` and `shared/`. Routes files may import router guards and paths from `@/app/router`; that is the one tolerated exception.
+- Existing leaks (for example `shared/ui/Tabs.vue` importing the core permission store) are debt. Do not add new ones and do not copy them.
 - If a change seems to need a forbidden import, stop and propose moving the shared piece down a layer instead.
