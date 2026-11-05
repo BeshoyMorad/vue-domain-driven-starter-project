@@ -13,6 +13,6 @@ export {
 export { useMultiStepForm } from './useMultiStepForm';
 export type { UseMultiStepFormReturn } from './useMultiStepForm';
 export { useNetwork } from './useNetwork';
-export { useModal } from './useModal';
+export { useDialog } from './useDialog';
 export { useVirtualScroll } from './useVirtualScroll';
 export { useTableState } from './useTableState';
